@@ -43,9 +43,7 @@ public class ParkingLot {
 
     public int getParkingLotEarnings(){
         AtomicInteger sum = new AtomicInteger(0);
-
         paidCars.forEach((licence, payment) -> sum.addAndGet(payment));
-
         return sum.get();
     }
 
