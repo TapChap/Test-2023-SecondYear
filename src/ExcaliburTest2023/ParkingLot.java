@@ -11,6 +11,8 @@ public class ParkingLot {
     private final int MAX_CAPACITY = 5;
     private double pricePerHour;
 
+    private final AtomicInteger earnings = new AtomicInteger(0);
+
     public ParkingLot(){
         cars = new HashMap<>();
         paidCars = new HashMap<>();
@@ -25,7 +27,7 @@ public class ParkingLot {
     }
 
     public int getParkingPrice(String licencePlate){
-        return (int) (this.pricePerHour * (getTime() - cars.get(licencePlate)));
+        return (int) (this.pricePerHour * (getTime() - cars.get(licencePlate)) / 3600);
     }
 
     public void setCarPayed(String licencePlate, int payment){
@@ -38,13 +40,13 @@ public class ParkingLot {
 
     public void exitCar(String licencePlate){
         cars.remove(licencePlate);
+        earnings.addAndGet(paidCars.get(licencePlate));
         paidCars.remove(licencePlate);
     }
 
     public int getParkingLotEarnings(){
-        AtomicInteger sum = new AtomicInteger(0);
-        paidCars.forEach((licence, payment) -> sum.addAndGet(payment));
-        return sum.get();
+        paidCars.forEach((licence, payment) -> earnings.addAndGet(payment));
+        return earnings.get();
     }
 
     public void setHourlyPrice(double price){
