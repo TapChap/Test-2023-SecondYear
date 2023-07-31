@@ -1,5 +1,3 @@
-package ExcaliburTest2023;
-
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;

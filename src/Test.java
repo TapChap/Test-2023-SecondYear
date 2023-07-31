@@ -1,5 +1,3 @@
-package ExcaliburTest2023;
-
 import java.util.Scanner;
 
 public class Test {
